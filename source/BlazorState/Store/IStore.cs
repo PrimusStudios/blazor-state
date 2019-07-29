@@ -7,7 +7,6 @@
   {
     IDictionary<string, object> GetSerializableState();
 
-    void LoadStatesFromJson(string aJsonString);
   }
 
   public interface IStore

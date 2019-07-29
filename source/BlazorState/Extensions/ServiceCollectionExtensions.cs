@@ -1,8 +1,6 @@
 ﻿namespace BlazorState
 {
   using BlazorState.Features.JavaScriptInterop;
-  using BlazorState.Features.Routing;
-  using BlazorState.Pipeline.ReduxDevTools;
   using BlazorState.Pipeline.State;
   using BlazorState.Services;
   using MediatR;
@@ -14,7 +12,6 @@
   using System;
   using System.Linq;
   using System.Net.Http;
-  using static BlazorState.Features.Routing.RouteState;
 
   public static class ServiceCollectionExtensions
   {
@@ -48,29 +45,6 @@
         aServices.AddScoped<Subscriptions>();
         aServices.AddScoped(typeof(IRequestPostProcessor<,>), typeof(RenderSubscriptionsPostProcessor<,>));
         aServices.AddScoped<IStore, Store>();
-
-        if (options.UseCloneStateBehavior)
-        {
-          aServices.AddScoped(typeof(IPipelineBehavior<,>), typeof(CloneStateBehavior<,>));
-        }
-        if (options.UseReduxDevToolsBehavior)
-        {
-          aServices.AddScoped(typeof(IRequestPostProcessor<,>), typeof(ReduxDevToolsPostProcessor<,>));
-          aServices.AddScoped<ReduxDevToolsInterop>();
-
-          aServices.AddTransient<IRequestHandler<CommitRequest, Unit>, CommitHandler>();
-          aServices.AddTransient<IRequestHandler<JumpToStateRequest, Unit>, JumpToStateHandler>();
-          aServices.AddTransient<IRequestHandler<StartRequest, Unit>, StartHandler>();
-          aServices.AddScoped(aServiceProvider => (IReduxDevToolsStore)aServiceProvider.GetService<IStore>());
-        }
-        if (options.UseRouting)
-        {
-          aServices.AddScoped<RouteManager>();
-          aServices.AddScoped<RouteState>();
-
-          aServices.AddTransient<IRequestHandler<ChangeRouteAction, RouteState>, ChangeRouteHandler>();
-          aServices.AddTransient<IRequestHandler<InitializeRouteAction, RouteState>, InitializeRouteHandler>();
-        }
       }
       return aServices;
     }
@@ -130,5 +104,6 @@
         aServices.AddMediatR(aOptions.Assemblies.ToArray());
       }
     }
+
   }
 }

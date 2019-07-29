@@ -10,12 +10,6 @@
     ///// </summary>
     public IEnumerable<Assembly> Assemblies { get; set; }
 
-    public bool UseCloneStateBehavior { get; set; } = true;
-
-    public bool UseReduxDevToolsBehavior { get; set; } = true;
-
-    public bool UseRouting { get; set; } = true;
-
     public Options()
     {
       Assemblies = new Assembly[] { };

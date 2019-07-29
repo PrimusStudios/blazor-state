@@ -7,7 +7,7 @@
   using MediatR.Pipeline;
   using Microsoft.Extensions.Logging;
 
-  internal class RenderSubscriptionsPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+  public class RenderSubscriptionsPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
   {
     public RenderSubscriptionsPostProcessor(
       ILogger<RenderSubscriptionsPostProcessor<TRequest, TResponse>> aLogger,

@@ -3,12 +3,10 @@
   using System;
   using System.Collections.Generic;
   using Microsoft.Extensions.Logging;
-  using Microsoft.Extensions.DependencyInjection.Extensions;
-  using Microsoft.Extensions.DependencyInjection;
 
   /// <summary>
   /// </summary>
-  internal partial class Store : IStore
+  public partial class Store : IStore
   {
     private readonly IServiceProvider ServiceProvider;
 

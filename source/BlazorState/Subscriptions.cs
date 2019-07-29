@@ -9,7 +9,7 @@
   {
     private readonly struct Subscription : IEquatable<Subscription>
     {
-      public Subscription(Type aStateType, string aComponentId, WeakReference<BlazorStateComponent> aBlazorStateComponentReference)
+      public Subscription(Type aStateType, string aComponentId, WeakReference<IBlazorStateComponent> aBlazorStateComponentReference)
       {
         StateType = aStateType;
         ComponentId = aComponentId;
@@ -18,12 +18,12 @@
 
       public Type StateType { get; }
       public string ComponentId { get; }
-      public WeakReference<BlazorStateComponent> BlazorStateComponentReference { get; }
+      public WeakReference<IBlazorStateComponent> BlazorStateComponentReference { get; }
 
       public bool Equals(Subscription aSubscription) =>
         EqualityComparer<Type>.Default.Equals(StateType, aSubscription.StateType) &&
         ComponentId == aSubscription.ComponentId &&
-        EqualityComparer<WeakReference<BlazorStateComponent>>.Default.Equals(BlazorStateComponentReference, aSubscription.BlazorStateComponentReference);
+        EqualityComparer<WeakReference<IBlazorStateComponent>>.Default.Equals(BlazorStateComponentReference, aSubscription.BlazorStateComponentReference);
 
       public static bool operator ==(Subscription aLeftSubscription, Subscription aRightSubscription) => aLeftSubscription.Equals(aRightSubscription);
       public static bool operator !=(Subscription aLeftSubscription, Subscription aRightSubscription) => !(aLeftSubscription == aRightSubscription);
@@ -38,13 +38,13 @@
     private ILogger Logger { get; }
     private List<Subscription> BlazorStateComponentReferencesList { get; }
 
-    public Subscriptions Add<T>(BlazorStateComponent aBlazorStateComponent)
+    public Subscriptions Add<T>(IBlazorStateComponent aBlazorStateComponent)
     {
       Type type = typeof(T);
 
       return Add(type, aBlazorStateComponent);
     }
-    public Subscriptions Add(Type aType, BlazorStateComponent aBlazorStateComponent)
+    public Subscriptions Add(Type aType, IBlazorStateComponent aBlazorStateComponent)
     {
       // Add only once.
       if (!BlazorStateComponentReferencesList.Any(aSubscription => aSubscription.StateType == aType && aSubscription.ComponentId == aBlazorStateComponent.Id))
@@ -52,7 +52,7 @@
         var subscription = new Subscription(
           aType,
           aBlazorStateComponent.Id,
-          new WeakReference<BlazorStateComponent>(aBlazorStateComponent));
+          new WeakReference<IBlazorStateComponent>(aBlazorStateComponent));
 
         BlazorStateComponentReferencesList.Add(subscription);
       }
@@ -60,7 +60,7 @@
       return this;
     }
 
-    public Subscriptions Remove(BlazorStateComponent aBlazorStateComponent)
+    public Subscriptions Remove(IBlazorStateComponent aBlazorStateComponent)
     {
       Logger.LogDebug($"Removing Subscription for {aBlazorStateComponent.Id}");
       BlazorStateComponentReferencesList.RemoveAll(aRecord => aRecord.ComponentId == aBlazorStateComponent.Id);
@@ -89,7 +89,7 @@
       IEnumerable<Subscription> subscriptions = BlazorStateComponentReferencesList.Where(aRecord => aRecord.StateType == aType);
       foreach (Subscription subscription in subscriptions.ToList())
       {
-        if (subscription.BlazorStateComponentReference.TryGetTarget(out BlazorStateComponent target))
+        if (subscription.BlazorStateComponentReference.TryGetTarget(out IBlazorStateComponent target))
         {
           Logger.LogDebug($"ReRender ComponentId:{subscription.ComponentId} StateType.Name:{subscription.StateType.Name}");
           target.ReRender();
