@@ -7,12 +7,12 @@ trigger:
   - source/BlazorState/*
   - source/BlazorState.Js/*
 
-# no PR builds
 pr:
-- master
-- releases/*
+ branches:
+   include:
+     - master
 
-queue:
+pool:
   name: TimeWarpEnterprises
 
 steps:
@@ -50,7 +50,7 @@ steps:
   continueOnError: false
   inputs:
     command: test
-    arguments: '-maxcpucount:1 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:UseSourceLink=true /p:Include="[BlazorState]*"'
+#    arguments: '-maxcpucount:1 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:UseSourceLink=true /p:Include="[BlazorState]*"'
     projects: "**/*Tests/*.csproj"
 
 - task: reportgenerator@4
