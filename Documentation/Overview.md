@@ -19,7 +19,7 @@ Please see the **[GitHub Site](https://github.com/TimeWarpEngineering/blazor-sta
 Blazor-State is available as a [Nuget Package](https://www.nuget.org/packages/Blazor-State/)
 
 ```console
-dotnet add package Blazor-State
+dotnet add package Blazor-State --version 1.0.0-preview8.*
 ```
 
 ## Getting Started
@@ -28,6 +28,8 @@ If you are just beginning with blazor then I recommend you first check out [gett
 
 The easiest way to get started with blazor-state is to create a new application based on the [timewarp-blazor template](./TemplateOverview.md)
 Which gives you a base line for both client, server, and testing.
+
+### Tutorial
 
 If you would like a basic step by step on adding blazor-state to the `blazorhosted` template then follow this [tutorial](xref:BlazorStateSample:README.md).
 

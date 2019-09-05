@@ -4,59 +4,72 @@ trigger:
   - master
  paths:
   include:
-  - source/BlazorState/*
-  - source/BlazorState.Js/*
+  - Source/*
 
 pr:
  branches:
    include:
      - master
+ paths:
+  include:
+  - Source/*
 
 pool:
   name: TimeWarpEnterprises
 
-steps:
-- script: echo Build.SourceVersion $(Build.SourceVersion)
-- script: echo Build.SourceVersion $(BuildConfiguration)
+variables:
+ Major: '1'
+ Minor: '0'
+ Patch: '0'
+ DotNetSdkVersion: 3.0.100-preview8-013656
+ PreviewNumber: $[counter(variables.DotNetSdkVersion,100)]
+ Version: "$(Major).$(Minor).$(Patch)-$(DotNetSdkVersion)-$(PreviewNumber)"
+ Configuration: debug
 
-#- task: Npm@1
-#  inputs:
-#    command: 'install'
-#    workingDir: source/BlazorState.Js
+steps:
+- script: |
+    echo Version $(Version)
+    cleanup -y
+
+- task: dutchworkz.DisplayAllVariables.DisplayAllVariables.DutchWorkzToolsAllVariables@1
+  displayName: 'Show all build variables in build output.'
 
 - task: DotNetCoreCLI@2
   displayName: Build BlazorState
   inputs:
     command: build
-    arguments: '-maxcpucount:1'
-    projects: 'source/BlazorState/BlazorState.csproj'
+    arguments: '-maxcpucount:1 -p:Version=$(Version)'
+    projects: 'Source/BlazorState/BlazorState.csproj'
+
+- powershell: |
+   Write-Host $(Version)
+   New-Item $(System.DefaultWorkingDirectory)/Source/BlazorState/bin/Version.txt -Force
+   Set-Content $(System.DefaultWorkingDirectory)/Source/BlazorState/bin/Version.txt $(Version)
+  displayName: 'PowerShell Script'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifact
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/source/BlazorState/bin/Version.txt'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Source/BlazorState/bin/Version.txt'
     ArtifactName: Version
     publishLocation: Container
-
-# Delete files
-# Delete folders, or files matching a pattern
-#- task: DeleteFiles@1
-#  inputs: 
-#    sourceFolder: $(Build.SourcesDirectory)/source/BlazorState.Js/bin
-#    contents: \*
 
 - task: DotNetCoreCLI@2
   displayName: Run all Tests in the repo gather coverage data
   continueOnError: false
   inputs:
     command: test
-#    arguments: '-maxcpucount:1 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:UseSourceLink=true /p:Include="[BlazorState]*"'
-    projects: "**/*Tests/*.csproj"
+    arguments: '-maxcpucount:1 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:UseSourceLink=true /p:Include="[BlazorState]*"'
+    projects: '**/*.Integration.Tests/*.csproj'
+
+- script: npm test
+  workingDirectory: '$(Build.SourcesDirectory)/Tests/EndToEnd.TestCafe.Tests'
+  displayName: Run TestCafe End to End Tests.
 
 - task: reportgenerator@4
   displayName: ReportGenerator
   inputs:
-    reports: '$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml'
+    reports: '$(Build.SourcesDirectory)/Tests/**/coverage.cobertura.xml'
     targetdir: $(Build.SourcesDirectory)/CodeCoverage
     reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
     historydir: $(Build.SourcesDirectory)/CodeCoverage/History
@@ -77,17 +90,9 @@ steps:
 #    %USERPROFILE%\.nuget\packages\codecov\1.5.0\tools\codecov.exe -f "./test/MyTestProject/coverage.opencover.xml" -t $(CODECOV_TOKEN)
 # displayName: Upload coverage to codecov.io
 
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet pack blazor-state
-  inputs:
-    command: pack
-    packagesToPack: 'source\BlazorState\BlazorState.csproj'
-    configurationToPack: debug
-    
 - task: PublishBuildArtifacts@1
-  displayName: Publish Artifact
+  displayName: Publish Nuget Artifact
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+    PathtoPublish: $(System.DefaultWorkingDirectory)/Source/BlazorState/bin/Packages
     ArtifactName: Nuget
     publishLocation: Container
