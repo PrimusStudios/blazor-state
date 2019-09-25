@@ -3,28 +3,30 @@
   using System.Threading;
   using System.Threading.Tasks;
   using BlazorState;
+  using MediatR;
   using Microsoft.AspNetCore.Components;
 
   public partial class RouteState
   {
-    internal class InitializeRouteHandler : RequestHandler<InitializeRouteAction, RouteState>
+    internal class InitializeRouteHandler : ActionHandler<InitializeRouteAction>
     {
-      public InitializeRouteHandler(
+      public InitializeRouteHandler
+      (
         IStore aStore,
         NavigationManager aNavigationManager
-        ) : base(aStore)
+      ) : base(aStore)
       {
         NavigationManager = aNavigationManager;
       }
 
       private RouteState RouteState => Store.GetState<RouteState>();
 
-      private NavigationManager NavigationManager { get; }
+      private readonly NavigationManager NavigationManager;
 
-      public override Task<RouteState> Handle(InitializeRouteAction aInitializeRouteRequest, CancellationToken aCancellationToken)
+      public override Task<Unit> Handle(InitializeRouteAction aInitializeRouteRequest, CancellationToken aCancellationToken)
       {
         RouteState.Route = NavigationManager.Uri;
-        return Task.FromResult(RouteState);
+        return Unit.Task;
       }
     }
   }

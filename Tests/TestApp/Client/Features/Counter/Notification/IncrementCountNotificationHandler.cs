@@ -7,7 +7,7 @@
   using TestApp.Client.Pipeline.NotificationPostProcessor;
 
   internal class IncrementCountNotificationHandler
-    : INotificationHandler<PostPipelineNotification<IncrementCounterAction, CounterState>>
+    : INotificationHandler<PostPipelineNotification<CounterState.IncrementCounterAction, Unit>>
   {
     private readonly ILogger Logger;
 
@@ -18,13 +18,13 @@
 
     public Task Handle
     (
-      PostPipelineNotification<IncrementCounterAction, CounterState> aPostPipelineNotification, 
+      PostPipelineNotification<CounterState.IncrementCounterAction, Unit> aPostPipelineNotification, 
       CancellationToken aCancellationToken
     )
     {
       Logger.LogDebug(aPostPipelineNotification.Request.GetType().Name);
       Logger.LogDebug($"{nameof(IncrementCountNotificationHandler)} handled");
-      return Task.CompletedTask;
+      return Unit.Task;
     }
   }
 }

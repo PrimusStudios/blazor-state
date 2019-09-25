@@ -8,23 +8,20 @@
   using System.Threading.Tasks;
   using TestApp.Client.Features.WeatherForecast;
   using TestApp.Client.Integration.Tests.Infrastructure;
+  using static TestApp.Client.Features.WeatherForecast.WeatherForecastsState;
 
   internal class FetchWeatherForecastTests
   {
-    private IMediator Mediator { get; }
+    private readonly IMediator Mediator;
+    private readonly IStore Store;
 
-    private IServiceProvider ServiceProvider { get; }
-
-    private IStore Store { get; }
-
-    private WeatherForecastsState WeatherForecastsState { get; set; }
+    private WeatherForecastsState WeatherForecastsState => Store.GetState<WeatherForecastsState>();
 
     public FetchWeatherForecastTests(TestFixture aTestFixture)
     {
-      ServiceProvider = aTestFixture.ServiceProvider;
-      Mediator = ServiceProvider.GetService<IMediator>();
-      Store = ServiceProvider.GetService<IStore>();
-      WeatherForecastsState = Store.GetState<WeatherForecastsState>();
+      IServiceProvider serviceProvider = aTestFixture.ServiceProvider;
+      Mediator = serviceProvider.GetService<IMediator>();
+      Store = serviceProvider.GetService<IStore>();
     }
 
     public async Task Should_Fetch_WeatherForecasts()
@@ -33,7 +30,7 @@
       var fetchWeatherForecastsRequest = new FetchWeatherForecastsAction();
 
       // Act
-      WeatherForecastsState = await Mediator.Send(fetchWeatherForecastsRequest);
+      _ = await Mediator.Send(fetchWeatherForecastsRequest);
 
       // Assert
       WeatherForecastsState.WeatherForecasts.Count.ShouldBeGreaterThan(0);

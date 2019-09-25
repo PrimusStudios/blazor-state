@@ -1,18 +1,25 @@
 ﻿namespace BlazorState.Features.Routing
 {
-  using System;
   using MediatR;
   using Microsoft.AspNetCore.Components;
   using Microsoft.AspNetCore.Components.Routing;
 
   /// <summary>
-  /// When constructed will attach a OnLocationChanged Handler 
+  /// When constructed will attach a OnLocationChanged Handler
   /// to send ChangeRouteRequest
   /// </summary>
   public class RouteManager
   {
+    private readonly IMediator Mediator;
+
+    private readonly NavigationManager NavigationManager;
+
+    private readonly IStore Store;
+
+    private RouteState RouteState => Store.GetState<RouteState>();
+
     public RouteManager(
-      NavigationManager aNavigationManager,
+                      NavigationManager aNavigationManager,
       IMediator aMediator,
       IStore aStore)
     {
@@ -20,20 +27,15 @@
       Mediator = aMediator;
       Store = aStore;
       NavigationManager.LocationChanged += LocationChanged;
-      Mediator.Send(new InitializeRouteAction());
+      Mediator.Send(new RouteState.InitializeRouteAction());
     }
-
-    private IMediator Mediator { get; }
-    private RouteState RouteState => Store.GetState<RouteState>();
-    private IStore Store { get; }
-    private NavigationManager NavigationManager { get; }
 
     private void LocationChanged(object aSender, LocationChangedEventArgs aLocationChangedEventArgs)
     {
       string absoluteUri = NavigationManager.ToAbsoluteUri(aLocationChangedEventArgs.Location).ToString();
       if (RouteState.Route != absoluteUri)
       {
-        Mediator.Send(new ChangeRouteAction { NewRoute = absoluteUri });
+        Mediator.Send(new RouteState.ChangeRouteAction { NewRoute = absoluteUri });
       }
     }
   }

@@ -1,6 +1,6 @@
 ---
-uid: BlazorStateSample:README.md
-title: Blazor-State Sample Application
+uid: BlazorState:Tutorial.md
+title: Blazor-State Tutorial
 ---
 
 # Blazor-State Sample Application
@@ -13,7 +13,7 @@ This sample shows how to add Blazor-State to a `Blazor hosted WebAssembly App` a
 2. Install the Blazor templates by running the following command in a command shell:
 
 ```console
-dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
+dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19457.4
 ```
 
 ## Creating the project
@@ -21,7 +21,7 @@ dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
 1. Create a new project `dotnet new blazorwasm --hosted -n Sample`
 2. Change directory to the new project `cd Sample`
 3. Run the default application and confirm it works.  
-   `dotnet run --project .\Server\Sample.Server.csproj`
+   `dotnet run --project ./Server/Sample.Server.csproj`
 
 You should see something similar to the following:
 
@@ -40,7 +40,7 @@ Open a browser and enter <http://localhost:5000>
 
 You should see:
 
-Insert Image here.
+![BlazorWasm Hosted ScreenShot](Images/BlazorWasmHostedScreenShot.png)
 
 Go to the Counter page and click the `Click me` button.
 Observe the incrementing of the value.
@@ -56,7 +56,7 @@ Return to the home page. Then back to the counter page.
 ## Add Blazor-State
 
 Add the Blazor-State NuGet package to the `Sample.Client` project.
-   `dotnet add .\Client\Sample.Client.csproj package Blazor-State --version 1.0.0-3.0.100-preview8-013656-107`
+   `dotnet add ./Client/Sample.Client.csproj package Blazor-State --version "1.0.0-3.0.100-rc1-014190-*"`
 
 ## Feature File Structure
 
@@ -76,7 +76,7 @@ Your class should:
 
 * be a partial class
 * inherit from `State<CounterState>`
-* override the `Initialize()` method. To set the initial values.
+* override the `Initialize()` method. To set the initial `Count` to 3.
 
 The only value we want to maintain is a Count.
 The code for the class should be as follows.
@@ -119,7 +119,7 @@ namespace Sample.Client
         (aOptions) => aOptions.Assemblies =
           new Assembly[]
           {
-                typeof(Startup).GetTypeInfo().Assembly,
+            typeof(Startup).GetTypeInfo().Assembly,
           }
       );
       services.AddScoped<CounterState>();
@@ -135,11 +135,11 @@ namespace Sample.Client
 
 ## Displaying state in the user interface
 
-1. Edit `Pages\Counter.razor` as follows
+1. Edit `Pages/Counter.razor` as follows
 2. Inherit from BlazorStateComponent `@inherits BlazorStateComponent`, to do that you need to also add `@using BlazorState`
 3. Next add a `CounterState` property that gets the State from the store `GetState<CounterState>()`, this will require you add `@using Sample.Client.Features.Counter` also.
 4. change `currentCount` to pull the Count from state. `int currentCount => CounterState.Count;`
-5. Notice that inside the `IncrementCount` method the `currentCount`can no longer be incremented. 
+5. Notice that inside the `IncrementCount` method the `currentCount`can no longer be incremented.
  From the outside CounterState class the state is immutable.
  So lets comment out that line.
 
@@ -181,16 +181,17 @@ The `Action` is then handled by a `Handler` which can freely mutate the state.
 > [!Warning]
 > State should NOT be mutated by anything other than handlers.
 > All state changes should be done in handlers.
-> This can be controlled by making state immutable and your handlers a nested class of the state they modify.
+> This can be controlled by making the states public interface immutable and your handlers a nested class of the state they modify.
 
-## Create the `IncrementCounterRequest`
+## Create the `IncrementCounterAction`
 
-1. In the Client project ensure the path `Features\Counter\Actions\IncrementCount` folder.
+1. In the Client project ensure the path `Features/Counter/Actions/IncrementCount` folder.
 2. In this folder create a class named `IncrementCountAction.cs`.
 
 The class should:
 
-* inherit from `IRequest<CounterState>`
+* be a nested class of the state it will mutate `CounterState`
+* inherit from `IAction`
 * have namespace Sample.Client.Features.Counter
 * contain the Amount property
 as follows:
@@ -198,25 +199,27 @@ as follows:
 ```csharp
 namespace Sample.Client.Features.Counter
 {
-  using MediatR;
+  using BlazorState;
 
-  public class IncrementCountAction : IRequest<CounterState>
+  public partial class CounterState
   {
-    public int Amount { get; set; }
+    public class IncrementCountAction : IAction
+    {
+      public int Amount { get; set; }
+    }
   }
 }
-
 ```
 
 ## Sending the action through the mediator pipeline
 
 To Send the action to the pipeline when the user clicks the `Click me` button,
-In `Pages\Counter.razor` update the `IncrementCount` function as follows:
+In `Pages/Counter.razor` update the `IncrementCount` function as follows:
 
 ```csharp
 void IncrementCount()
 {
-    Mediator.Send(new IncrementCountAction { Amount = 5 });
+    Mediator.Send(new CounterState.IncrementCountAction { Amount = 5 });
 }
 ```
 
@@ -224,14 +227,14 @@ void IncrementCount()
 
 The `Handler` is where we actually mutate the state to complete the `Action`.  
 
-1. In the `Features\Counter\IncrementCount` folder create a new class file named
+1. In the `Features/Counter/IncrementCount` folder create a new class file named
  `IncrementCountHandler.cs`
 
 The Handler should:
 
 * be a nested class of the state it will mutate `CounterState`
-* Inherit from `BlazorState.Handlers.RequestHandler`.
-* The generic parameters are the Request Type `IncrementCountRequest` and the state type `CounterState`.
+* Inherit from `BlazorState.Handlers.ActionHandler`.
+* The generic parameters are the Request Type `IncrementCountAction` and the return type `Unit` (which is a MediatR version of void).
 * Override the `Handle` method to mutate state as desired:
 
 ```csharp
@@ -240,18 +243,20 @@ namespace Sample.Client.Features.Counter
   using System.Threading;
   using System.Threading.Tasks;
   using BlazorState;
+  using MediatR;
+
   public partial class CounterState
   {
-    public class IncrementCountHandler : RequestHandler<IncrementCountAction, CounterState>
+    public class IncrementCountHandler : ActionHandler<IncrementCountAction>
     {
       public IncrementCountHandler(IStore aStore) : base(aStore) { }
 
       CounterState CounterState => Store.GetState<CounterState>();
 
-      public override Task<CounterState> Handle(IncrementCountAction aIncrementCountAction, CancellationToken aCancellationToken)
+      public override Task<Unit> Handle(IncrementCountAction aIncrementCountAction, CancellationToken aCancellationToken)
       {
         CounterState.Count = CounterState.Count + aIncrementCountAction.Amount;
-        return Task.FromResult(CounterState);
+        return Unit.Task;
       }
     }
   }
@@ -278,26 +283,27 @@ To facilitate Javascript Interop, enable ReduxDevTools, and manage RouteState, a
 ```csharp
 namespace Sample.Client
 {
-    using System.Threading.Tasks;
-    using BlazorState.Pipeline.ReduxDevTools;
-    using BlazorState.Features.JavaScriptInterop;
-    using BlazorState.Features.Routing;
-    using Microsoft.AspNetCore.Components;
+  using System.Threading.Tasks;
+  using BlazorState.Pipeline.ReduxDevTools;
+  using BlazorState.Features.JavaScriptInterop;
+  using BlazorState.Features.Routing;
+  using Microsoft.AspNetCore.Components;
 
-    public class AppBase : ComponentBase
+  public class AppBase : ComponentBase
+  {
+    [Inject] private JsonRequestHandler JsonRequestHandler { get; set; }
+    [Inject] private ReduxDevToolsInterop ReduxDevToolsInterop { get; set; }
+
+    // Injected so it is created by the container. Even though the IDE says it is not used, it is.
+    [Inject] private RouteManager RouteManager { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [Inject] private JsonRequestHandler JsonRequestHandler { get; set; }
-        [Inject] private ReduxDevToolsInterop ReduxDevToolsInterop { get; set; }
-
-        // Injected so it is created by the container. Even though the ide says it is not used, it is.
-        [Inject] private RouteManager RouteManager { get; set; }
-
-        protected override async Task OnAfterRenderAsync()
-        {
-            await ReduxDevToolsInterop.InitAsync();
-            await JsonRequestHandler.InitAsync();
-        }
+      await ReduxDevToolsInterop.InitAsync();
+      await JsonRequestHandler.InitAsync();
     }
+
+  }
 }
 ```
 

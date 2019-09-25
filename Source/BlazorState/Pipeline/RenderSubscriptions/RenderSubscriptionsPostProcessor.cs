@@ -1,28 +1,33 @@
 ﻿namespace BlazorState.Pipeline.State
 {
-  using System;
-  using System.Threading;
-  using System.Threading.Tasks;
   using BlazorState;
   using MediatR.Pipeline;
   using Microsoft.Extensions.Logging;
+  using System;
+  using System.Threading;
+  using System.Threading.Tasks;
 
   internal class RenderSubscriptionsPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
   {
-    public RenderSubscriptionsPostProcessor(
+    private readonly ILogger Logger;
+
+    private readonly Subscriptions Subscriptions;
+
+    public RenderSubscriptionsPostProcessor
+    (
       ILogger<RenderSubscriptionsPostProcessor<TRequest, TResponse>> aLogger,
-      Subscriptions aSubscriptions)
+      Subscriptions aSubscriptions
+    )
     {
       Logger = aLogger;
       Logger.LogDebug($"{GetType().Name}: constructor with TRequest:{typeof(TRequest).Name} TResponse:{typeof(TResponse).Name}");
       Subscriptions = aSubscriptions;
     }
 
-    private ILogger Logger { get; }
-    private Subscriptions Subscriptions { get; }
-
     public Task Process(TRequest aRequest, TResponse aResponse, CancellationToken aCancellationToken)
     {
+      Type declaringType = typeof(TRequest).DeclaringType;
+
       // logging variables
       string className = GetType().Name;
       className = className.Remove(className.IndexOf('`'));
@@ -32,7 +37,7 @@
       try
       {
         Logger.LogDebug($"{className}: ReRenderSubscribers");
-        Subscriptions.ReRenderSubscribers<TResponse>();
+        Subscriptions.ReRenderSubscribers(declaringType);
         Logger.LogDebug($"{className}: End Post Processing");
       }
       catch (Exception aException)
