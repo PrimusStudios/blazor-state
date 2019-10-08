@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Autofac;
 
 namespace XamarinTestApp
 {
@@ -16,6 +17,8 @@ namespace XamarinTestApp
         public MainPage()
         {
             InitializeComponent();
+      var vm = App.Container.BeginLifetimeScope().Resolve<MainPageViewModel>();
+      BindingContext = vm;
         }
     }
 }

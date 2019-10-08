@@ -11,7 +11,7 @@
   /// The portion of the store that is only needed to support
   /// ReduxDevTools Integration
   /// </summary>
-  internal partial class Store : IReduxDevToolsStore
+  public partial class Store : IReduxDevToolsStore
   {
     /// <summary>
     /// Returns the States in a manner that can be serialized

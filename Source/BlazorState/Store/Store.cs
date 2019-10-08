@@ -7,7 +7,7 @@
 
   /// <summary>
   /// </summary>
-  internal partial class Store : IStore
+  public partial class Store : IStore
   {
     private readonly JsonSerializerOptions JsonSerializerOptions;
     private readonly ILogger Logger;
