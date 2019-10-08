@@ -6,10 +6,9 @@
              xmlns:vm="clr-namespace:XamarinTestApp"
              x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d" x:Class="XamarinTestApp.MainPage">
-  <StackLayout>
+  <StackLayout VerticalOptions="Center">
     <Label Text="{Binding TestState.Text}"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"/>
+               HorizontalOptions="Center"/>
     <Button Text="Hey"
             Command="{Binding HeyCommand}"
             BackgroundColor="White"

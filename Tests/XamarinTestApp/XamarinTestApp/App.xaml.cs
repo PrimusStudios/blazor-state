@@ -52,9 +52,18 @@ namespace XamarinTestApp
       var builder = new ContainerBuilder();
       builder.AddMediatR(new[] { typeof(IMediator).Assembly, typeof(TestState).Assembly, typeof(ChangeTextCommand).Assembly });
 
+      var blazorStateOptions = new BlazorStateOptions
+      {
+        
+      };
+
+
+      builder.RegisterInstance(blazorStateOptions);
       builder.RegisterGeneric(typeof(NullLogger<>))
       .As(typeof(ILogger<>))
       .SingleInstance();
+
+      builder.RegisterType<TestState>().SingleInstance();
 
       builder.RegisterGeneric(typeof(RenderSubscriptionsPostProcessor<,>))
           .As(typeof(IRequestPostProcessor<,>)).InstancePerLifetimeScope();
