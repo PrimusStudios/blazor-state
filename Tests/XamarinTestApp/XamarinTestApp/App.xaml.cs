@@ -1,31 +1,107 @@
-﻿using System;
+﻿
+using Autofac;
+using BlazorState;
+using BlazorState.Features.JavaScriptInterop;
+using BlazorState.Pipeline.State;
+using BlazorState.Services;
+using MediatR;
+using MediatR.Extensions.Autofac.DependencyInjection;
+using MediatR.Pipeline;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinTestApp;
+using XamarinTestApp.State;
 
 namespace XamarinTestApp
 {
-    public partial class App : Application
+  public partial class App : Application
+  {
+    public static IContainer Container { get; private set; }
+
+    public App()
     {
-        public App()
-        {
-            InitializeComponent();
 
-            MainPage = new MainPage();
-        }
+      Container = CreateContainer();
 
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
+      InitializeComponent();
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+      MainPage = new MainPage();
     }
+
+    protected override void OnStart()
+    {
+      // Handle when your app starts
+    }
+
+    protected override void OnSleep()
+    {
+      // Handle when your app sleeps
+    }
+
+    protected override void OnResume()
+    {
+      // Handle when your app resumes
+    }
+
+
+    protected IContainer CreateContainer()
+    {
+      var builder = new ContainerBuilder();
+      builder.AddMediatR(new[] { typeof(IMediator).Assembly, typeof(TestState).Assembly, typeof(ChangeTextCommand).Assembly });
+
+      var blazorStateOptions = new BlazorStateOptions
+      {
+        
+      };
+
+
+      builder.RegisterInstance(blazorStateOptions);
+      builder.RegisterGeneric(typeof(NullLogger<>))
+      .As(typeof(ILogger<>))
+      .SingleInstance();
+
+      builder.RegisterType<TestState>().SingleInstance();
+
+      builder.RegisterGeneric(typeof(RenderSubscriptionsPostProcessor<,>))
+          .As(typeof(IRequestPostProcessor<,>)).InstancePerLifetimeScope();
+      //builder.RegisterGeneric(typeof(RequestValidationBehavior<,>))
+      //    .As(typeof(IPipelineBehavior<,>)).InstancePerLifetimeScope();
+
+      builder.RegisterType<ServiceProvider>().AsImplementedInterfaces();
+      builder.RegisterType(typeof(BlazorHostingLocation)).InstancePerLifetimeScope();
+      builder.RegisterType(typeof(JsonRequestHandler)).InstancePerLifetimeScope();
+      builder.RegisterType(typeof(Subscriptions)).InstancePerLifetimeScope();
+
+      builder.RegisterType<Store>().AsImplementedInterfaces().InstancePerLifetimeScope();
+
+      builder.RegisterType<MainPageViewModel>();
+      //var mediatrOpenTypes = new[]
+      //{
+      //          typeof(IValidator<>),
+      //      };
+
+      //foreach (var mediatrOpenType in mediatrOpenTypes)
+      //{
+      //  builder
+      //      .RegisterAssemblyTypes(typeof(UserState).GetTypeInfo().Assembly, typeof(SyncSitesCommand).Assembly)
+      //      .AsClosedTypesOf(mediatrOpenType)
+      //      .AsImplementedInterfaces();
+      //}
+
+      return builder.Build();
+    }
+  }
 }
+
+public class ServiceProvider : IServiceProvider
+{
+  public object GetService(Type serviceType)
+  {
+    return App.Container.Resolve(serviceType);
+  }
+}
+
+

@@ -7,7 +7,7 @@
   using System.Threading;
   using System.Threading.Tasks;
 
-  internal class RenderSubscriptionsPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+  public class RenderSubscriptionsPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
   {
     private readonly ILogger Logger;
 
