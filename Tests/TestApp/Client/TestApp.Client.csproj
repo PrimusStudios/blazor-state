@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\BlazorState.Js\BlazorState.Js.csproj" />
+    <ProjectReference Include="..\..\..\source\BlazorState.Js\Core.State.Js.csproj" />
     <ProjectReference Include="..\..\..\source\BlazorState\BlazorState.csproj" />
     <ProjectReference Include="..\Api\TestApp.Api.csproj" />
   </ItemGroup>

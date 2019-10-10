@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   entry: {
-    "blazorstate": "./src/Initialize.ts"
+    "CoreState": "./src/Initialize.ts"
   },
   output: {
     path: path.join(__dirname, "/dist"),

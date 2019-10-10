@@ -1,7 +1,7 @@
-import { BlazorState } from './BlazorState';
+import { CoreState } from './CoreState';
 import { ReduxDevTools} from './ReduxDevTools';
 import {
-  BlazorStateName,
+  CoreStateName,
   InitializeJavaScriptInteropName,
   JsonRequestHandlerName,
   ReduxDevToolsFactoryName,
@@ -15,9 +15,9 @@ function InitializeJavaScriptInterop(JsonRequestHandler) {
 
 
 function Initialize() {
-  console.log("Initialize BlazorState");
-  if (typeof window !== 'undefined' && !window[BlazorStateName]) {
-    window[BlazorStateName] = new BlazorState();
+  console.log("Initialize CoreState");
+  if (typeof window !== 'undefined' && !window[CoreStateName]) {
+    window[CoreStateName] = new CoreState();
     window[InitializeJavaScriptInteropName] = InitializeJavaScriptInterop;
     window[ReduxDevToolsFactoryName] = ReduxDevToolsFactory;
   }

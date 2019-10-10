@@ -55,7 +55,6 @@
 
   <!-- TypeScript project-->
   <ItemGroup>
-    <ProjectReference Include="..\BlazorState.Js\BlazorState.Js.csproj" PrivateAssets="All" />
     <None Include="..\..\UNLICENSE.txt" Pack="true" PackagePath="" />
     <None Include="..\..\assets\Logo.png" Pack="true" PackagePath="" />
   </ItemGroup>

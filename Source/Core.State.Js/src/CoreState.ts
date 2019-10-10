@@ -1,6 +1,6 @@
 ﻿import {  JsonRequestHandlerMethodName, JsonRequestHandlerName } from './Constants';
 
-export class BlazorState {
+export class CoreState {
   async DispatchRequest(requestTypeFullName: string, request: any ) {
     const requestAsJson = JSON.stringify(request);
 

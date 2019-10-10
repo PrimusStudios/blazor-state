@@ -1,15 +1,15 @@
-﻿import { BlazorState } from './BlazorState';
-import { BlazorStateName, ReduxExtensionName, DevToolsName, ReduxDevToolsName } from './Constants';
+﻿import { CoreState } from './CoreState';
+import { CoreStateName, ReduxExtensionName, DevToolsName, ReduxDevToolsName } from './Constants';
 
 export class ReduxDevTools {
   IsEnabled: boolean;
   DevTools: any;
   Extension: any;
   Config: { name: string; features: { pause: boolean; lock: boolean; persist: boolean; export: boolean; import: boolean; jump: boolean; skip: boolean; reorder: boolean; dispatch: boolean; test: boolean; }; };
-  BlazorState: BlazorState;
+  CoreState: CoreState;
 
   constructor() {
-    this.BlazorState = window[BlazorStateName]; // Depends on this functionality
+    this.CoreState = window[CoreStateName]; // Depends on this functionality
     this.Config = {
       name: 'Blazor State',
       features: {
@@ -59,8 +59,8 @@ export class ReduxDevTools {
     var dispatchRequests = {
       'COMMIT': undefined,
       'IMPORT_STATE': undefined,
-      'JUMP_TO_ACTION': 'BlazorState.Pipeline.ReduxDevTools.JumpToStateRequest',
-      'JUMP_TO_STATE': 'BlazorState.Pipeline.ReduxDevTools.JumpToStateRequest',
+      'JUMP_TO_ACTION': 'CoreState.Pipeline.ReduxDevTools.JumpToStateRequest',
+      'JUMP_TO_STATE': 'CoreState.Pipeline.ReduxDevTools.JumpToStateRequest',
       'RESET': undefined,
       'ROLLBACK': undefined,
       'TOGGLE_ACTION': undefined
@@ -68,10 +68,10 @@ export class ReduxDevTools {
     var blazorRequestType;
     switch (message.type) {
       case 'START':
-        blazorRequestType = 'BlazorState.Pipeline.ReduxDevTools.StartRequest';
+        blazorRequestType = 'CoreState.Pipeline.ReduxDevTools.StartRequest';
         break;
       case 'STOP':
-        //blazorRequestType = 'BlazorState.Pipeline.ReduxDevTools.StopRequest';
+        //blazorRequestType = 'CoreState.Pipeline.ReduxDevTools.StopRequest';
         break;
       case 'DISPATCH':
         blazorRequestType = dispatchRequests[message.payload.type];
@@ -90,12 +90,12 @@ export class ReduxDevTools {
     const requestType = this.MapRequestType(message);
     if (requestType) { // If we don't map this type then there is nothing to dispatch just ignore.
       jsonRequest = {
-        // TODO: make sure non Requests from assemblies other than BlazorState also work.
+        // TODO: make sure non Requests from assemblies other than CoreState also work.
         RequestType: requestType,
         Payload: message
       };
 
-      this.BlazorState.DispatchRequest(requestType, message);
+      this.CoreState.DispatchRequest(requestType, message);
     } else
       console.log(`messages of this type are currently not supported`);
   }
