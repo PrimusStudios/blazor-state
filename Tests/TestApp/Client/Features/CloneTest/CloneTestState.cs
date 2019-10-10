@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.CloneTest
 {
-  using BlazorState;
+  using Core.State;
   using System;
 
   internal partial class CloneTestState : State<CloneTestState>, ICloneable

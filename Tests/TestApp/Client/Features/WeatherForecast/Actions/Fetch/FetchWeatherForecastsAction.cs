@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.WeatherForecast
 {
-  using BlazorState;
+  using Core.State;
 
   internal partial class WeatherForecastsState
   {

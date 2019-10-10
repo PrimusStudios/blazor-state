@@ -1,5 +1,5 @@
-﻿using BlazorState;
-using BlazorState.Components;
+﻿using Core.State;
+using Core.State.Components;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace XamarinTestApp
 {
-  public abstract class BaseViewModel : BlazorStateViewModel, INotifyPropertyChanged 
+  public abstract class BaseViewModel : CoreStateViewModel, INotifyPropertyChanged 
   {
     public BaseViewModel(IMediator mediator, IStore store, Subscriptions subs) : base(mediator, store, subs)
     {

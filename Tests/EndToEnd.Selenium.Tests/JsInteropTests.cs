@@ -50,8 +50,8 @@
     private void InitalizationWorked()
     {
 
-      object blazorState = JavaScriptExecutor.ExecuteScript("return window.BlazorState;");
-      blazorState.ShouldNotBeNull();
+      object CoreState = JavaScriptExecutor.ExecuteScript("return window.CoreState;");
+      CoreState.ShouldNotBeNull();
 
       object initializeJavaScriptInterop = JavaScriptExecutor.ExecuteScript("return window.InitializeJavaScriptInterop;");
       initializeJavaScriptInterop.ShouldNotBeNull();

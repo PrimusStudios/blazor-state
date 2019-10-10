@@ -10,10 +10,10 @@
     /// <summary>
     /// All Valid projects
     /// </summary>
-    internal static string[] ProjectList { get; } = new string[] { "BlazorState"};
+    internal static string[] ProjectList { get; } = new string[] { "CoreState"};
 
     /// <summary>
-    /// The Project {BlazorState,BlazorTemplate,ConsoleTemplate}
+    /// The Project {CoreState,BlazorTemplate,ConsoleTemplate}
     /// </summary>
     public string Project { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿namespace TestApp.Client.Integration.Tests.Features.EventStream
 {
   using System;
-  using BlazorState;
+  using Core.State;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;
   using TestApp.Client.Integration.Tests.Infrastructure;

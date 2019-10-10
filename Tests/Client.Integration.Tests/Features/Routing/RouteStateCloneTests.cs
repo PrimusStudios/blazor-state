@@ -1,8 +1,8 @@
 ﻿namespace TestApp.Client.Integration.Tests.Features.Routing
 {
   using AnyClone;
-  using BlazorState;
-  using BlazorState.Features.Routing;
+  using Core.State;
+  using Core.State.Features.Routing;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;
   using System;

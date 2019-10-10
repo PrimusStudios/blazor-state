@@ -39,16 +39,16 @@ In this Folder you can have
 
 
 # Logging
-If no Logger is provided BlazorState would default to the "Null Logger".
+If no Logger is provided CoreState would default to the "Null Logger".
 Logging is done with Blazor Logging Extension
 https://github.com/BlazorExtensions/Logging
 
 # Configuration
 In Program.cs add the following:
-  services.AddBlazorState();
+  services.AddCoreState();
   
 Add the following in your App.cshtml if you want to enable ReduxDevTools
-@using BlazorState.Pipeline.ReduxDevTools
+@using Core.State.Pipeline.ReduxDevTools
 @inherits ReduxDevToolsComponent
 
 The BaseComponent would not be required to inherit from a Blazor-State component, 

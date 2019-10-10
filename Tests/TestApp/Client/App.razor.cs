@@ -1,9 +1,9 @@
 ﻿namespace TestApp.Client
 {
   using System.Threading.Tasks;
-  using BlazorState.Pipeline.ReduxDevTools;
-  using BlazorState.Features.JavaScriptInterop;
-  using BlazorState.Features.Routing;
+  using Core.State.Pipeline.ReduxDevTools;
+  using Core.State.Features.JavaScriptInterop;
+  using Core.State.Features.Routing;
   using Microsoft.AspNetCore.Components;
 
   public class AppBase : ComponentBase

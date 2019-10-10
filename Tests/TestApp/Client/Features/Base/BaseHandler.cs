@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.Base
 {
-  using BlazorState;
+  using Core.State;
   using TestApp.Client.Features.Application;
   using TestApp.Client.Features.Counter;
   using TestApp.Client.Features.EventStream;

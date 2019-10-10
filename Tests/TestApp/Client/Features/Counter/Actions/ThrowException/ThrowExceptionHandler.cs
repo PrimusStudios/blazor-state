@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.Counter
 {
-  using BlazorState;
+  using Core.State;
   using MediatR;
   using System;
   using System.Threading;

@@ -4,16 +4,16 @@
 
   public class TestFixture
   {
-    private readonly BlazorStateTestServer BlazorStateTestServer;
+    private readonly CoreStateTestServer CoreStateTestServer;
 
     /// <summary>
     /// This is the ServiceProvider that will be used by the Server
     /// </summary>
-    public IServiceProvider ServiceProvider => BlazorStateTestServer.Services;
+    public IServiceProvider ServiceProvider => CoreStateTestServer.Services;
 
-    public TestFixture(BlazorStateTestServer aBlazorStateTestServer)
+    public TestFixture(CoreStateTestServer aCoreStateTestServer)
     {
-      BlazorStateTestServer = aBlazorStateTestServer;
+      CoreStateTestServer = aCoreStateTestServer;
     }
   }
 }

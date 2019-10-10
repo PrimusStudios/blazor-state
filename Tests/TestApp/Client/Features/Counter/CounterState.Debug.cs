@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Reflection;
-  using BlazorState;
+  using Core.State;
   using Microsoft.JSInterop;
 
   public partial class CounterState : State<CounterState>

@@ -1,5 +1,5 @@
-﻿using BlazorState;
-using BlazorState.Components;
+﻿using Core.State;
+using Core.State.Components;
 using MediatR;
 using System.Threading.Tasks;
 using System.Windows.Input;

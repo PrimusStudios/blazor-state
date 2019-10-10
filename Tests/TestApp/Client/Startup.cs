@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client
 {
-  using BlazorState;
+  using Core.State;
   using MediatR;
   using Microsoft.AspNetCore.Components.Builder;
   using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +19,7 @@
 
     public void ConfigureServices(IServiceCollection aServiceCollection)
     {
-      aServiceCollection.AddBlazorState
+      aServiceCollection.AddCoreState
       (
         (aOptions) => aOptions.Assemblies =
           new Assembly[] 

@@ -1,7 +1,7 @@
 ﻿namespace TestApp.Client.Integration.Tests.Features.Counter
 {
   using AnyClone;
-  using BlazorState;
+  using Core.State;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;
   using System;
