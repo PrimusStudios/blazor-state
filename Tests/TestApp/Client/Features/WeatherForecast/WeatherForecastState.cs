@@ -1,7 +1,7 @@
 ﻿namespace TestApp.Client.Features.WeatherForecast
 {
   using System.Collections.Generic;
-  using BlazorState;
+  using Core.State;
   using TestApp.Api.Features.WeatherForecast;
 
   internal partial class WeatherForecastsState : State<WeatherForecastsState>

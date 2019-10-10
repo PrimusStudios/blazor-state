@@ -1,4 +1,4 @@
-﻿using BlazorState;
+﻿using Core.State;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

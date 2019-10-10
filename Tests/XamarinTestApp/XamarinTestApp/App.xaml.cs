@@ -1,9 +1,9 @@
 ﻿
 using Autofac;
-using BlazorState;
-using BlazorState.Features.JavaScriptInterop;
-using BlazorState.Pipeline.State;
-using BlazorState.Services;
+using Core.State;
+using Core.State.Features.JavaScriptInterop;
+using Core.State.Pipeline.State;
+using Core.State.Services;
 using MediatR;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Pipeline;
@@ -52,13 +52,13 @@ namespace XamarinTestApp
       var builder = new ContainerBuilder();
       builder.AddMediatR(new[] { typeof(IMediator).Assembly, typeof(TestState).Assembly, typeof(ChangeTextCommand).Assembly });
 
-      var blazorStateOptions = new BlazorStateOptions
+      var CoreStateOptions = new CoreStateOptions
       {
         
       };
 
 
-      builder.RegisterInstance(blazorStateOptions);
+      builder.RegisterInstance(CoreStateOptions);
       builder.RegisterGeneric(typeof(NullLogger<>))
       .As(typeof(ILogger<>))
       .SingleInstance();

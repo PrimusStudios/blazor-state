@@ -4,7 +4,7 @@
   using System.Runtime.Serialization;
   using System.Threading;
   using System.Threading.Tasks;
-  using BlazorState;
+  using Core.State;
   using MediatR;
   using TestApp.Client.Features.Base;
 

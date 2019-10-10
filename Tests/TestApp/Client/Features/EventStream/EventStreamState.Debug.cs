@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Reflection;
-  using BlazorState;
+  using Core.State;
 
   internal partial class EventStreamState : State<EventStreamState>
   {

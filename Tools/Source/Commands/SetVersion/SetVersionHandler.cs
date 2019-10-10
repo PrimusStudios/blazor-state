@@ -17,7 +17,7 @@
     {
       if (aSetVersionRequest.Project == SetVersionRequest.ProjectList[0])
       {
-        Mediator.Send(new SetBlazorStateVersionRequest
+        Mediator.Send(new SetCoreStateVersionRequest
         {
           Major = aSetVersionRequest.Major,
           Minor = aSetVersionRequest.Minor,

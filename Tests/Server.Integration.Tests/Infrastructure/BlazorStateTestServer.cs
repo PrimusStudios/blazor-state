@@ -4,9 +4,9 @@
   using Microsoft.AspNetCore.Hosting;
   using Microsoft.AspNetCore.TestHost;
 
-  public class BlazorStateTestServer : TestServer
+  public class CoreStateTestServer : TestServer
   {
-    public BlazorStateTestServer() : base(WebHostBuilder()) { }
+    public CoreStateTestServer() : base(WebHostBuilder()) { }
 
     private static IWebHostBuilder WebHostBuilder() =>
       WebHost.CreateDefaultBuilder()

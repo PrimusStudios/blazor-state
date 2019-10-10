@@ -2,9 +2,9 @@
 {
   using System.Threading;
   using System.Threading.Tasks;
-  using BlazorState;
+  using Core.State;
   using MediatR;
-  using static BlazorState.Features.Routing.RouteState;
+  using static Core.State.Features.Routing.RouteState;
 
   internal class ResetStoreHandler : IRequestHandler<ResetStoreAction>
   {

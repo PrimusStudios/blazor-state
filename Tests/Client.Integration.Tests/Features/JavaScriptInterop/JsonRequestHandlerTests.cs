@@ -1,7 +1,7 @@
-﻿namespace BlazorState.Tests.Features.Counter
+﻿namespace Core.State.Tests.Features.Counter
 {
-  using BlazorState;
-  using BlazorState.Features.JavaScriptInterop;
+  using Core.State;
+  using Core.State.Features.JavaScriptInterop;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;
   using System;
@@ -27,7 +27,7 @@
       ServiceProvider = aTestFixture.ServiceProvider;
       JsonRequestHandler = ServiceProvider.GetService<JsonRequestHandler>();
       Store = ServiceProvider.GetService<IStore>();
-      JsonSerializerOptions = ServiceProvider.GetService<BlazorStateOptions>().JsonSerializerOptions;
+      JsonSerializerOptions = ServiceProvider.GetService<CoreStateOptions>().JsonSerializerOptions;
     }
 
     //public async Task ShouldPerformAction()

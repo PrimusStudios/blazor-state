@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Layout
 {
-  using BlazorState.Services;
+  using Core.State.Services;
   using Microsoft.AspNetCore.Components;
 
   public class MainLayoutBase : LayoutComponentBase

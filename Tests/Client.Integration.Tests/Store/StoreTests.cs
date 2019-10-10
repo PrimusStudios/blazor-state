@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Integration.Tests
 {
-  using BlazorState;
+  using Core.State;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;
   using System;

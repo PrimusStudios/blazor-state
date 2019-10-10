@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Integration.Tests.Pipeline
 {
-  using BlazorState;
+  using Core.State;
   using MediatR;
   using Microsoft.Extensions.DependencyInjection;
   using Shouldly;

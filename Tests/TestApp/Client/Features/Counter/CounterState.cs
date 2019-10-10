@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.Counter
 {
-  using BlazorState;
+  using Core.State;
 
   public partial class CounterState : State<CounterState>
   {

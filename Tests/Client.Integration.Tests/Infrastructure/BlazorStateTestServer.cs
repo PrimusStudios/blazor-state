@@ -9,9 +9,9 @@
   /// This is a test version of the `TestApp.Server`.
   /// The `TestFixture` class will use the HttpClient from this class
   /// </summary>
-  public class BlazorStateTestServer : TestServer
+  public class CoreStateTestServer : TestServer
   {
-    public BlazorStateTestServer() : base(WebHostBuilder()) { }
+    public CoreStateTestServer() : base(WebHostBuilder()) { }
 
     private static IWebHostBuilder WebHostBuilder() =>
       WebHost.CreateDefaultBuilder()

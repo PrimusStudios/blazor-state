@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.EventStream
 {
-  using BlazorState;
+  using Core.State;
 
   internal partial class EventStreamState
   {

@@ -1,4 +1,4 @@
-﻿using BlazorState;
+﻿using Core.State;
 
 namespace XamarinTestApp.State
 {

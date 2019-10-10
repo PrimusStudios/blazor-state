@@ -3,11 +3,11 @@
   using MediatR;
 
   /// <summary>
-  /// Set the version in all required files for BlazorState
+  /// Set the version in all required files for CoreState
   /// This will also set the reference in the TimeWarp Blazor Template
   /// so you may want to update its version also.
   /// </summary>
-  internal class SetBlazorStateVersionRequest : IRequest
+  internal class SetCoreStateVersionRequest : IRequest
   {
     /// <summary>
     /// Major Version Number

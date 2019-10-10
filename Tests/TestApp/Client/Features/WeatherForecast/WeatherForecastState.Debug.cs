@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.WeatherForecast
 {
-  using BlazorState;
+  using Core.State;
   using Microsoft.JSInterop;
   using System.Collections.Generic;
   using System.Reflection;

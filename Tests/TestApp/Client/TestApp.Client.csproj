@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\BlazorState.Js\Core.State.Js.csproj" />
-    <ProjectReference Include="..\..\..\source\BlazorState\BlazorState.csproj" />
+    <ProjectReference Include="..\..\..\source\Core.State.Js\Core.State.Js.csproj" />
+    <ProjectReference Include="..\..\..\source\Core.State\Core.State.csproj" />
     <ProjectReference Include="..\Api\TestApp.Api.csproj" />
   </ItemGroup>
 

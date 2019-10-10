@@ -36,7 +36,7 @@
 
     private void ConfigureTestServices(ServiceCollection aServiceCollection)
     {
-      aServiceCollection.AddSingleton<BlazorStateTestServer>();
+      aServiceCollection.AddSingleton<CoreStateTestServer>();
       aServiceCollection.Scan(aTypeSourceSelector => aTypeSourceSelector
         // Start with all non abstract types in this assembly
         .FromAssemblyOf<TestingConvention>()

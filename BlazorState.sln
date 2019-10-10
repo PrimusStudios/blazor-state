@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorState", "source\BlazorState\BlazorState.csproj", "{DF355720-EA1E-4505-AE68-1D36BD0D4711}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.State", "source\Core.State\Core.State.csproj", "{DF355720-EA1E-4505-AE68-1D36BD0D4711}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{437186AC-1CB6-4FE4-8C36-0C2F135021C9}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.State.Js", "source\Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2902FDFD-016E-4BF7-8B41-53D674FA53DD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorStateSample", "BlazorStateSample", "{A1FF1F5B-51D4-460E-83A2-D84ECA3CC44E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreStateSample", "CoreStateSample", "{A1FF1F5B-51D4-460E-83A2-D84ECA3CC44E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{E5536454-D05F-4C5B-92E5-AB44091503DA}"
 EndProject

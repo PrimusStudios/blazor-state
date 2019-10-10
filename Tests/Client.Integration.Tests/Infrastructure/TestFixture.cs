@@ -21,11 +21,11 @@
     /// </summary>
     private readonly IWebAssemblyHostBuilder WebAssemblyHostBuilder;
 
-    private readonly BlazorStateTestServer BlazorStateTestServer;
+    private readonly CoreStateTestServer CoreStateTestServer;
 
-    public TestFixture(BlazorStateTestServer aBlazorStateTestServer)
+    public TestFixture(CoreStateTestServer aCoreStateTestServer)
     {
-      BlazorStateTestServer = aBlazorStateTestServer;
+      CoreStateTestServer = aCoreStateTestServer;
       WebAssemblyHostBuilder = BlazorWebAssemblyHost.CreateDefaultBuilder()
         .ConfigureServices(ConfigureServices);
     }
@@ -37,7 +37,7 @@
     private void ConfigureServices(IServiceCollection aServiceCollection)
     {
       // The client needs to use the special HttpClient provided by the test Server.
-      aServiceCollection.AddSingleton(BlazorStateTestServer.CreateClient());
+      aServiceCollection.AddSingleton(CoreStateTestServer.CreateClient());
 
       // Use the same configuration that we have in `TestApp.Client`
       new Client.Startup().ConfigureServices(aServiceCollection);

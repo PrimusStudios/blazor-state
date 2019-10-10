@@ -1,10 +1,10 @@
 ﻿namespace TestApp.Client.Components
 {
-  using BlazorState;
-  using BlazorState.Services;
+  using Core.State;
+  using Core.State.Services;
   using Microsoft.AspNetCore.Components;
 
-  public class BlazorLocationBase : BlazorStateComponent
+  public class BlazorLocationBase : CoreStateComponent
   {
     [Inject] public BlazorHostingLocation BlazorHostingLocation { get; set; }
 

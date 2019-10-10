@@ -1,4 +1,4 @@
-﻿using BlazorState;
+﻿using Core.State;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

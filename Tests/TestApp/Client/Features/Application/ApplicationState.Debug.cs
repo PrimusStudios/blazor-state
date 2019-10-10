@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Reflection;
-  using BlazorState;
+  using Core.State;
   using Microsoft.JSInterop;
 
   internal partial class ApplicationState : State<ApplicationState>

@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.Application
 {
-  using BlazorState;
+  using Core.State;
 
   internal partial class ApplicationState : State<ApplicationState>
   {

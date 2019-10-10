@@ -1,6 +1,6 @@
 ﻿namespace TestApp.Client.Features.WeatherForecast
 {
-  using BlazorState;
+  using Core.State;
   using MediatR;
   using Microsoft.AspNetCore.Components;
   using System.Net.Http;
