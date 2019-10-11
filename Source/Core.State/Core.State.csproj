@@ -11,10 +11,10 @@
 
   <PropertyGroup>
     <Title>Blazor State</Title>
-    <Company>TimeWarp Enterprises Limited</Company>
-    <Description>blazor-state a MediatR pipeline for Blazor state management</Description>
+    <Company>Primus Studios</Company>
+    <Description>A fork of blazor-state. Core State is a MediatR pipeline for Blazor, Xamarin, UWP, WPF state management</Description>
     <OutputType>Library</OutputType>
-    <PackageId>Blazor-State</PackageId>
+    <PackageId>Core-State</PackageId>
     <!--<PackageIcon>Logo.png</PackageIcon> This works in dotnet and MSBuild but Nuget still doesn't support it.-->
     <PackageLicenseFile>UNLICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -41,6 +41,12 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeJsDll</TargetsForTfmSpecificBuildOutput>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./bin/Packages</PackageOutputPath>
+    <Authors>Steven T. Cramer, Primus Studios</Authors>
+    <Product>Core State</Product>
+    <PackageProjectUrl>https://github.com/PrimusStudios/blazor-state</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PrimusStudios/blazor-state.git</RepositoryUrl>
+    <PackageTags>Microsoft ASP.NET Core Blazor State Blazor-State MediatR Mediator Pipeline Redux Xamarin UWP WPF</PackageTags>
+    <PackageReleaseNotes>a MediatR pipeline for Blazor, Xamarin, UWP, WPF state management.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,7 +65,7 @@
     <None Include="..\..\assets\Logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.State.Js\Core.State.Js.csproj" />
+    <ProjectReference Include="..\Core.State.Js\Core.State.Js.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <Target Name="IncludeJsDll">
