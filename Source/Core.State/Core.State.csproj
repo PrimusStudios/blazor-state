@@ -47,6 +47,7 @@
     <RepositoryUrl>https://github.com/PrimusStudios/blazor-state.git</RepositoryUrl>
     <PackageTags>Microsoft ASP.NET Core Blazor State Blazor-State MediatR Mediator Pipeline Redux Xamarin UWP WPF</PackageTags>
     <PackageReleaseNotes>a MediatR pipeline for Blazor, Xamarin, UWP, WPF state management.</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
