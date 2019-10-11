@@ -62,7 +62,6 @@
   <!-- TypeScript project-->
   <ItemGroup>
     <None Include="..\..\UNLICENSE.txt" Pack="true" PackagePath="" />
-    <None Include="..\..\assets\Logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.State.Js\Core.State.Js.csproj" PrivateAssets="All" />
