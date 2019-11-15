@@ -43,11 +43,12 @@
     <PackageOutputPath>./bin/Packages</PackageOutputPath>
     <Authors>Primus Studios</Authors>
     <Product>Core State</Product>
-    <PackageProjectUrl>https://github.com/PrimusStudios/blazor-state</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/PrimusStudios/blazor-state.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PrimusStudios/core-state</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PrimusStudios/core-state.git</RepositoryUrl>
     <PackageTags>Microsoft ASP.NET Core Blazor State Blazor-State MediatR Mediator Pipeline Redux Xamarin UWP WPF</PackageTags>
     <PackageReleaseNotes>a MediatR pipeline for Blazor, Xamarin, UWP, WPF state management.</PackageReleaseNotes>
     <Version>1.0.0</Version>
+    <PackageIconUrl>https://github.com/PrimusStudios/blazor-state/raw/development/Assets/logoletters.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
