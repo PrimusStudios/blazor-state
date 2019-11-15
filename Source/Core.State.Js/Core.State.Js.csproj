@@ -30,6 +30,8 @@
   </Target>
   <PropertyGroup>
     <JavascriptOutputFile>CoreState.js</JavascriptOutputFile>
+    <Authors />
+    <Product>CoreState</Product>
   </PropertyGroup>
   <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="dist\$(JavascriptOutputFile)" DependsOnTargets="EnsureNpmRestored">
     <RemoveDir Directories="dist" />

@@ -45,7 +45,17 @@
     /// <summary>
     /// Exposes StateHasChanged
     /// </summary>
-    public void ReRender() => base.InvokeAsync(StateHasChanged);
+    public void ReRender()
+    {
+      base.InvokeAsync(StateHasChanged);
+      OnStateChanged();
+    }
+   
+
+    protected virtual void OnStateChanged()
+    {
+
+    }
 
     /// <summary>
     /// Place a Subscription for the calling component
