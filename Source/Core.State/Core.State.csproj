@@ -41,7 +41,7 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeJsDll</TargetsForTfmSpecificBuildOutput>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./bin/Packages</PackageOutputPath>
-    <Authors>Steven T. Cramer, Primus Studios</Authors>
+    <Authors>Primus Studios</Authors>
     <Product>Core State</Product>
     <PackageProjectUrl>https://github.com/PrimusStudios/blazor-state</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PrimusStudios/blazor-state.git</RepositoryUrl>
