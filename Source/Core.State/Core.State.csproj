@@ -55,8 +55,9 @@
     <PackageReference Include="AnyClone" Version="1.0.36" />
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.15" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.17" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
     <PackageReference Include="TypeSupport" Version="1.0.108" />
   </ItemGroup>
 
