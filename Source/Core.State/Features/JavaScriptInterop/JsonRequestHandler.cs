@@ -9,6 +9,7 @@
   using System.Text.Json;
   using System.Threading;
   using System.Threading.Tasks;
+  using System.Web;
 
   public class JsonRequestHandler
   {
@@ -42,13 +43,13 @@
       if (string.IsNullOrWhiteSpace(aRequestTypeAssemblyQualifiedName))
         throw new ArgumentException("was Null or empty", nameof(aRequestTypeAssemblyQualifiedName));
 
-      Logger.LogDebug($"{GetType().Name}: Handling request of type: {aRequestTypeAssemblyQualifiedName}: {aRequestAsJson}");
+      Logger.LogDebug(HttpUtility.HtmlEncode($"{GetType().Name}: Handling request of type: {aRequestTypeAssemblyQualifiedName}: {aRequestAsJson}"));
 
       var requestType = Type.GetType(aRequestTypeAssemblyQualifiedName);
       if (requestType == null)
         throw new ArgumentException($"Type not found with name {aRequestTypeAssemblyQualifiedName}. Make sure the type has public accessibility", nameof(aRequestTypeAssemblyQualifiedName));
       else
-        Logger.LogDebug($"{GetType().Name}: Type ({aRequestTypeAssemblyQualifiedName})  was found");
+        Logger.LogDebug(HttpUtility.HtmlEncode($"{GetType().Name}: Type ({aRequestTypeAssemblyQualifiedName})  was found"));
 
       object instance = JsonSerializer.Deserialize(aRequestAsJson, requestType, JsonSerializerOptions);
 
@@ -59,7 +60,7 @@
     {
       Logger.LogDebug("Init JsonRequestHandler");
       const string InitializeJavaScriptInteropName = "InitializeJavaScriptInterop";
-      Logger.LogDebug(InitializeJavaScriptInteropName);
+      Logger.LogDebug(HttpUtility.HtmlEncode(InitializeJavaScriptInteropName));
       await JSRuntime.InvokeAsync<object>(InitializeJavaScriptInteropName, DotNetObjectReference.Create(this));
     }
 
